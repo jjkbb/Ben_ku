@@ -1,0 +1,34 @@
+//橙色呼吸
+//uint8_t led_orange_pwm_duty_g[pwm_count]={ 2, 4, 6, 8, 9,
+//                                          10,12,14,16,17,
+//                                          18,20,22,24,26,
+//                                          27,29,31,33,35,
+//                                          36,37,38,39,40};
+uint8_t lslidar_led_orange_pwm_duty_g[pwm_count]={ 1, 2, 3, 4, 5,
+                                          6,8,10,12,14,
+                                          16,18,20,22,24,
+                                          26,28,30,31,32,
+                                          33,35,37,39,40};
+
+
+
+	case LED_STSTUS_ORANGE_BREATH:
+		    if(lslidar_led_breath_flag)
+		    {
+		    	lslidar_led_breath_flag = false;
+
+		    	lslidar_tlc59731_sdi_light(lslidar_led_orange_pwm_duty_g[lslidar_led_control.body_freq_num]*5,
+						                   lslidar_led_orange_pwm_duty_g[lslidar_led_control.body_freq_num],
+								           0);
+
+				if(lslidar_led_control.body_led_pit0_pos)
+					lslidar_led_control.body_freq_num++;
+				else
+					lslidar_led_control.body_freq_num--;
+				if(lslidar_led_control.body_freq_num == 0 || lslidar_led_control.body_freq_num == (pwm_count - 1))
+					lslidar_led_control.body_led_pit0_pos = !lslidar_led_control.body_led_pit0_pos;
+		    }
+			break;
+
+
+
